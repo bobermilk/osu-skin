@@ -1,0 +1,8 @@
+all columns have the same color, only ln and rice are allowed to be different in color
+change colors as you please in the source files, remember to apply the 2px high quality iris blur for anti-aliasing if necessary
+
+judgements - marv, perf, good, bad, miss
+noodles - ln body, ln tail
+receptors - where your notes go to
+rice - notes
+misc - useless 
