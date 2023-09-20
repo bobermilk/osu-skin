@@ -275,22 +275,23 @@ echo     -33 = blue
 echo     -66 = pink
 echo     -100 = cyan
 echo/
-:q6
+:q6-1
 set /p "rice_hue=rice hue >> "
-set /p "noodle_hue=noodle hue >> "
 if %rice_hue% lss -100 (
-    goto :q6
+    goto :q6-1
 ) else if %rice_hue% gtr 100 (
-    goto :q6
+    goto :q6-1
 )
 
+:q6-2
+set /p "noodle_hue=noodle hue >> "
 if %noodle_hue% lss -100 (
-    goto :q6
+    goto :q6-2
 ) else if %noodle_hue% gtr 100 (
-    goto :q6
+    goto :q6-2
 )
 
-set /a rice_hue=%noodle_hue%+100
+set /a rice_hue=%rice_hue%+100
 set /a noodle_hue=%noodle_hue%+100
 
 set /p "confirm=Press enter to confirm changes"
