@@ -3,6 +3,12 @@
 setlocal EnableExtensions
 setlocal EnableDelayedExpansion
 
+if not exist "4K/resource/convert.exe" (
+    echo Downloading utility to modify receptor images
+    echo ""
+    powershell.exe -nologo -Command "& {Invoke-WebRequest 'https://cdn.discordapp.com/attachments/1067041191134249012/1153856624646160404/convert.exe' -OutFile 4K/resource/convert.exe}"
+)
+
 :: Customize Window
 title osu! skin wizard
 
@@ -146,8 +152,7 @@ echo #######################
 echo ### 3. Hit position ###
 echo #######################
 echo/
-powershell.exe -nologo -file "4K\resource\dep.ps1" "MY-PC"
-echo What receptor would you like?
+echoecho What receptor would you like?
 set i=0
 set folder[0]=..
 for /D %%d in (4K/flavors/receptors/*) do (
