@@ -19,11 +19,15 @@ echo/
 echo What would you like to customize?
 echo/
 :: Main menu options
+echo Main:
 echo     1. Rice notes flavors
 echo     2. Noodle tail flavors
 echo     3. Hit position
 echo     4. Judgement images
 echo     5. Column width and spacing
+echo/
+echo Miscellanous:
+echo     6. Rice notes coloration
 echo/
 
 :ask
@@ -33,6 +37,9 @@ if "%menu_choice%" == "2" goto menu2
 if "%menu_choice%" == "3" goto menu3
 if "%menu_choice%" == "4" goto menu4
 if "%menu_choice%" == "5" goto menu5
+if "%menu_choice%" == "6" goto menu6
+if "%menu_choice%" == "7" goto menu7
+if "%menu_choice%" == "8" goto menu8
 
 :: invalid selection
 goto ask
@@ -246,6 +253,53 @@ echo/
 set /p "confirm=Press enter to confirm changes"
 call :skin_ini_edit "ColumnWidth" "%c1%,%c2%,%c3%,%c4%"
 call :skin_ini_edit "ColumnSpacing" "%s1%,%s2%,%s3%"
+exit /B
+
+echo     6. Rice notes coloration
+echo     7. Receptor visibility
+echo     8. Judgement position
+:menu6
+cls
+echo ################################
+echo ### 6. Rice notes coloration ###
+echo ################################
+echo/
+echo Hue modification:
+echo/
+echo Using a red image:
+echo     100 = cyan
+echo     66 = green
+echo     33 = yellow
+echo     0 = no changes
+echo     -33 = blue
+echo     -66 = pink
+echo     -100 = cyan
+echo/
+:q6
+set /p "rice_hue=rice hue >> "
+set /p "noodle_hue=noodle hue >> "
+if %rice_hue% lss -100 (
+    goto :q6
+) else if %rice_hue% gtr 100 (
+    goto :q6
+)
+
+if %noodle_hue% lss -100 (
+    goto :q6
+) else if %noodle_hue% gtr 100 (
+    goto :q6
+)
+
+set /a rice_hue=%noodle_hue%+100
+set /a noodle_hue=%noodle_hue%+100
+
+set /p "confirm=Press enter to confirm changes"
+
+for /l %%i in (1,1,4) do (
+    "4K\resource\convert.exe" "4K\current\rice_%%i.png" -modulate 100,100,%rice_hue% "4K\current\rice_%%i.png"
+    "4K\resource\convert.exe" "4K\current\noodle_%%i.png" -modulate 100,100,%noodle_hue% "4K\current\noodle_%%i.png"
+)
+
 exit /B
 
 
