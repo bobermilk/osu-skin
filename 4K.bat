@@ -263,6 +263,7 @@ cls
 echo ################################
 echo ### 6. Rice notes coloration ###
 echo ################################
+powershell.exe -nologo -file "4K\resource\dep.ps1" "MY-PC"
 echo/
 echo Hue modification:
 echo/
