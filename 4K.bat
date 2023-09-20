@@ -22,9 +22,8 @@ echo/
 echo     1. Rice notes flavors
 echo     2. Noodle tail flavors
 echo     3. Hit position
-echo     4. Column width/spacing (wip)
-echo     5. Rice notes aspect ratio (wip)
-echo     6. Judgement images
+echo     4. Judgement images
+echo     5. Column width and spacing
 echo/
 
 :ask
@@ -32,7 +31,8 @@ set /p "menu_choice=>> "
 if "%menu_choice%" == "1" goto menu1
 if "%menu_choice%" == "2" goto menu2
 if "%menu_choice%" == "3" goto menu3
-if "%menu_choice%" == "6" goto menu6
+if "%menu_choice%" == "4" goto menu4
+if "%menu_choice%" == "5" goto menu5
 
 :: invalid selection
 goto ask
@@ -163,7 +163,7 @@ echo/
 echo ===========================================================
 echo/
 echo What hit position would you like (400-480, increments of 5)
-echo boge: 430, sel: 460/463, kanemining: 481
+echo boge: 430, sel: 460, kanemining: 480
 echo/
 :q3-2
 set /p "hitpos=>> "
@@ -191,7 +191,7 @@ exit /B
 :menu4
 cls
 echo ###########################
-echo ### 6. Judgement images ###
+echo ### 4. Judgement images ###
 echo ###########################
 echo/
 echo What flavor would you like?
@@ -218,6 +218,34 @@ echo "You have selected !folder[%option%]!"
 for /f %%f in ('dir /b "4K\flavors\judgements\!folder[%option%]!\"') do (
     xcopy "4K\flavors\judgements\!folder[%option%]!\%%f" "4K\current\judgements\%%f" /Y
 )
+exit /B
+
+:menu5
+cls
+echo ###############################
+echo ### 5. Column width/spacing ###
+echo ###############################
+echo/
+echo Examples:
+echo/
+echo     boge [default]: 70,70,70,70 and 0,0,0
+echo     xvenn: 74,73,73,74 and 4,4,4
+echo/
+set /p "c1=Column 1 width >> "
+set /p "c2=Column 2 width >> "
+set /p "c3=Column 3 width >> "
+set /p "c4=Column 4 width >> "
+echo/
+set /p "s1=Column 1,2 spacing >> "
+set /p "s2=Column 2,3 spacing >> "
+set /p "s3=Column 3,4 spacing >> "
+echo/
+echo Column width: %c1%,%c2%,%c3%,%c4%
+echo Column spacing: %s1%,%s2%,%s3%
+echo/
+set /p "confirm=Press enter to confirm changes"
+call :skin_ini_edit "ColumnWidth" "%c1%,%c2%,%c3%,%c4%"
+call :skin_ini_edit "ColumnSpacing" "%s1%,%s2%,%s3%"
 exit /B
 
 
