@@ -27,7 +27,7 @@ echo/
 echo Main:
 echo     1. Rice notes flavors
 echo     2. Noodle tail flavors
-echo     3. Hit position
+echo     3. Receptor hit position
 echo     4. Judgement images
 echo     5. Column width and spacing
 echo/
@@ -147,9 +147,9 @@ exit /B
 
 :menu3
 cls
-echo #######################
-echo ### 3. Hit position ###
-echo #######################
+echo ################################
+echo ### 3. Receptor hit position ###
+echo ################################
 echo/
 echo What receptor would you like?
 set i=0
