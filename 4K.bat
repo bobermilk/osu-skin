@@ -33,6 +33,7 @@ echo     5. Column width and spacing
 echo/
 echo Miscellanous:
 echo     6. Rice notes coloration
+echo     7. Ranking panel UI
 echo/
 
 :ask
@@ -225,13 +226,9 @@ if %option% leq 0 (
 )
 
 echo "You have selected !folder[%option%]!"
-:: delete the previous stuff
-for /f %%f in ('dir /b "4K\current\judgements\"') do (
-    del "4K\current\judgements\%%f"
-)
 :: copy the selected judgements
 for /f %%f in ('dir /b "4K\flavors\judgements\!folder[%option%]!\"') do (
-    copy "4K\flavors\judgements\!folder[%option%]!\%%f" "4K\current\judgements\%%f"
+    copy "4K\flavors\judgements\!folder[%option%]!\%%f" "4K\current\judgements\%%f" /y
 )
 exit /B
 
@@ -310,6 +307,37 @@ for /l %%i in (1,1,4) do (
     "4K\resource\convert.exe" "4K\current\noodle_%%i.png" -modulate 100,100,%noodle_hue% "4K\current\noodle_%%i.png"
 )
 
+exit /B
+
+
+:menu7
+cls
+echo ###########################
+echo ### 7. Ranking Panel UI ###
+echo ###########################
+echo/
+echo What flavor would you like?
+echo/
+set i=0
+set folder[0]=..
+for /D %%d in (4K/flavors/misc/ranking_panel/*) do (
+    set /A i+=1
+    set folder[!i!]=%%d
+    echo     !i!: %%d
+)
+echo/
+set /p "option=>> "
+
+echo "You have selected !folder[%option%]!"
+:: delete the previous stuff
+if exist mania-hit*.png del mania-hit*.png
+if exist ranking-panel.png del ranking-panel.png
+if exist ranking-panel@2x.png del ranking-panel@2x.png
+ 
+:: copy the selected ranking_panel
+for /f %%f in ('dir /b "4K\flavors\misc\ranking_panel\!folder[%option%]!\"') do (
+    copy "4K\flavors\misc\ranking_panel\!folder[%option%]!\%%f" .
+)
 exit /B
 
 
