@@ -225,9 +225,13 @@ if %option% leq 0 (
 )
 
 echo "You have selected !folder[%option%]!"
+:: delete the previous stuff
+for /f %%f in ('dir /b "4K\current\judgements\"') do (
+    del "4K\current\judgements\%%f"
+)
 :: copy the selected judgements
 for /f %%f in ('dir /b "4K\flavors\judgements\!folder[%option%]!\"') do (
-    xcopy "4K\flavors\judgements\!folder[%option%]!\%%f" "4K\current\judgements\%%f" /Y
+    copy "4K\flavors\judgements\!folder[%option%]!\%%f" "4K\current\judgements\%%f"
 )
 exit /B
 
