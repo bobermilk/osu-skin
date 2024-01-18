@@ -33,7 +33,7 @@ echo     5. Column width and spacing
 echo/
 echo Miscellanous:
 echo     6. Rice notes coloration
-echo     7. Ranking panel UI
+echo     7. Theme (song selection, ranking panel, score font)
 echo/
 
 :ask
