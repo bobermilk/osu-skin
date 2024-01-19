@@ -33,7 +33,7 @@ echo     5. Column width and spacing
 echo/
 echo Miscellanous:
 echo     6. Rice notes coloration
-echo     7. Theme (song selection, ranking panel, score font)
+echo     7. Skin theme
 echo/
 
 :ask
@@ -309,18 +309,17 @@ for /l %%i in (1,1,4) do (
 
 exit /B
 
-
 :menu7
 cls
 echo ###########################
-echo ### 7. Ranking Panel UI ###
+echo ###    7. Skin Theme    ###
 echo ###########################
 echo/
 echo What flavor would you like?
 echo/
 set i=0
 set folder[0]=..
-for /D %%d in (4K/flavors/misc/ranking_panel/*) do (
+for /D %%d in (4K/flavors/misc/themes/*) do (
     set /A i+=1
     set folder[!i!]=%%d
     echo     !i!: %%d
@@ -330,14 +329,22 @@ set /p "option=>> "
 
 echo "You have selected !folder[%option%]!"
 :: delete the previous stuff
-if exist mania-hit*.png del mania-hit*.png
-if exist ranking-panel.png del ranking-panel.png
-if exist ranking-panel@2x.png del ranking-panel@2x.png
+::if exist mania-hit*.png del mania-hit*.png
+::if exist ranking-panel.png del ranking-panel.png
+::if exist ranking-panel@2x.png del ranking-panel@2x.png
+del *.png
  
-:: copy the selected ranking_panel
+:: copy the selected theme
+for /f %%f in ('dir /b "4K\flavors\misc\themes\!folder[%option%]!\"') do (
+    copy "4K\flavors\misc\themes\!folder[%option%]!\%%f" .
+)
+:: copy the ranking panel
 for /f %%f in ('dir /b "4K\flavors\misc\ranking_panel\!folder[%option%]!\"') do (
     copy "4K\flavors\misc\ranking_panel\!folder[%option%]!\%%f" .
 )
+set /p score_font_overlap=<score_font_overlap_text_file.png
+call :skin_ini_edit "ScorePrefix" "fonts/score/!folder[%option%]!/score"
+call :skin_ini_edit "ScoreOverlap" %score_font_overlap%
 exit /B
 
 
