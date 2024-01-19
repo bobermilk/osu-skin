@@ -32,8 +32,8 @@ echo     4. Judgement images
 echo     5. Column width and spacing
 echo/
 echo Miscellanous:
-echo     6. Rice notes coloration
-echo     7. Skin theme
+echo     6. Skin theme
+echo     7. Rice notes coloration
 echo/
 
 :ask
@@ -263,10 +263,49 @@ exit /B
 echo     6. Rice notes coloration
 echo     7. Receptor visibility
 echo     8. Judgement position
+
 :menu6
 cls
+echo ###########################
+echo ###    6. Skin Theme    ###
+echo ###########################
+echo/
+echo What flavor would you like?
+echo/
+set i=0
+set folder[0]=..
+for /D %%d in (4K/flavors/misc/themes/*) do (
+    set /A i+=1
+    set folder[!i!]=%%d
+    echo     !i!: %%d
+)
+echo/
+set /p "option=>> "
+
+echo "You have selected !folder[%option%]!"
+:: delete the previous stuff
+::if exist mania-hit*.png del mania-hit*.png
+::if exist ranking-panel.png del ranking-panel.png
+::if exist ranking-panel@2x.png del ranking-panel@2x.png
+del *.png
+ 
+:: copy the selected theme
+for /f %%f in ('dir /b "4K\flavors\misc\themes\!folder[%option%]!\"') do (
+    copy "4K\flavors\misc\themes\!folder[%option%]!\%%f" .
+)
+:: copy the ranking panel
+for /f %%f in ('dir /b "4K\flavors\misc\ranking_panel\!folder[%option%]!\"') do (
+    copy "4K\flavors\misc\ranking_panel\!folder[%option%]!\%%f" .
+)
+set /p score_font_overlap=<score_font_overlap_text_file.png
+call :skin_ini_edit "ScorePrefix" "fonts/score/!folder[%option%]!/score"
+call :skin_ini_edit "ScoreOverlap" %score_font_overlap%
+exit /B
+
+:menu7
+cls
 echo ################################
-echo ### 6. Rice notes coloration ###
+echo ### 7. Rice notes coloration ###
 echo ################################
 powershell.exe -nologo -file "4K\resource\dep.ps1" "MY-PC"
 echo/
@@ -307,44 +346,6 @@ for /l %%i in (1,1,4) do (
     "4K\resource\convert.exe" "4K\current\noodle_%%i.png" -modulate 100,100,%noodle_hue% "4K\current\noodle_%%i.png"
 )
 
-exit /B
-
-:menu7
-cls
-echo ###########################
-echo ###    7. Skin Theme    ###
-echo ###########################
-echo/
-echo What flavor would you like?
-echo/
-set i=0
-set folder[0]=..
-for /D %%d in (4K/flavors/misc/themes/*) do (
-    set /A i+=1
-    set folder[!i!]=%%d
-    echo     !i!: %%d
-)
-echo/
-set /p "option=>> "
-
-echo "You have selected !folder[%option%]!"
-:: delete the previous stuff
-::if exist mania-hit*.png del mania-hit*.png
-::if exist ranking-panel.png del ranking-panel.png
-::if exist ranking-panel@2x.png del ranking-panel@2x.png
-del *.png
- 
-:: copy the selected theme
-for /f %%f in ('dir /b "4K\flavors\misc\themes\!folder[%option%]!\"') do (
-    copy "4K\flavors\misc\themes\!folder[%option%]!\%%f" .
-)
-:: copy the ranking panel
-for /f %%f in ('dir /b "4K\flavors\misc\ranking_panel\!folder[%option%]!\"') do (
-    copy "4K\flavors\misc\ranking_panel\!folder[%option%]!\%%f" .
-)
-set /p score_font_overlap=<score_font_overlap_text_file.png
-call :skin_ini_edit "ScorePrefix" "fonts/score/!folder[%option%]!/score"
-call :skin_ini_edit "ScoreOverlap" %score_font_overlap%
 exit /B
 
 
