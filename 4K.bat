@@ -5,7 +5,7 @@ setlocal EnableDelayedExpansion
 
 if not exist "4K/resource/convert.exe" (
     echo Downloading utility to modify receptor images
-    powershell.exe -nologo -Command "& {Invoke-WebRequest 'https://cdn.discordapp.com/attachments/1067041191134249012/1153856624646160404/convert.exe' -OutFile 4K/resource/convert.exe}"
+    powershell.exe -nologo -Command "& {Invoke-WebRequest 'https://soyoats.com/a/osu-skin-convert.exe' -OutFile 4K/resource/convert.exe}"
 )
 
 :: Customize Window
